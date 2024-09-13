@@ -1,0 +1,15 @@
+{
+  "name": "docker-node-fullcycle",
+  "version": "1.0.0",
+  "description": "Repository to be assessed by FullCycle team, it is a simple \"Hello World\" made in Golang with for docker course",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.0",
+    "mysql": "^2.18.1"
+  }
+}

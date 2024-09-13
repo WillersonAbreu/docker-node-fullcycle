@@ -1,0 +1,49 @@
+version: '3.8'
+networks:
+  node-app-network:
+    driver: bridge
+    
+
+services:
+  database:
+    image: mysql:5.7
+    container_name: mysql_db
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=node_app
+    volumes:
+      - ./src/mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - node-app-network
+  
+  node-app:
+    build:
+      context: .
+    container_name: node-app
+    environment:
+      - DB_HOST=database
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_NAME=node_app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - database
+    networks:
+      - node-app-network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - "./src/nginx/nginx.conf:/etc/nginx/nginx.conf"
+    depends_on:
+      - node-app
+    networks:
+      - node-app-network
+
+
