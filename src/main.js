@@ -4,10 +4,10 @@ const app = express();
 const port = 3000;
 
 const db = mysql.createConnection({
-  host: process.env.DB_HOST || 'localhost',
-  user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || 'root',
-  database: process.env.DB_NAME || 'node_app'
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
 });
 
 db.connect(err => {
@@ -37,8 +37,6 @@ app.get('/', (req, res) => {
     const GET_USERS = `
         SELECT * FROM users;
     `;
-
-
 
     db.query(GET_USERS, (error, users) => {
       let response = `

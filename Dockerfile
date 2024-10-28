@@ -1,10 +1,14 @@
-FROM bitnami/node
+FROM node:latest
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY ./src .
-COPY ./node_modules ./node_modules
+COPY package.json ./
+COPY package-lock.json ./
+
+RUN npm install
+
+COPY ./src ./
 
 EXPOSE 3000
 
-ENTRYPOINT [ "node", "main.js" ]
+CMD [ "node", "main.js"]
