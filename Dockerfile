@@ -2,13 +2,12 @@ FROM node:latest
 
 WORKDIR /usr/src/app
 
-COPY package.json ./
-COPY package-lock.json ./
+COPY ./package.json ./
+COPY ./package-lock.json ./
+COPY ./src ./src
 
 RUN npm install
 
-COPY ./src ./
-
 EXPOSE 3000
 
-CMD [ "node", "main.js"]
+CMD [ "node", "src/main.js"]

@@ -1,3 +1,5 @@
+version: '3.8'
+
 networks:
   node-app-network:
     driver: bridge
@@ -15,7 +17,12 @@ services:
       - "3306:3306"
     networks:
       - node-app-network
-  
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   node-app:
     build:
       context: .
@@ -26,14 +33,14 @@ services:
       - DB_PASSWORD=root
       - DB_NAME=node_app
     volumes:
-      - ./src:/usr/app
+      - ./src:/usr/src/app/src
     ports:
       - "3000:3000"
     depends_on:
-      - database
+      database:
+        condition: service_healthy
     networks:
       - node-app-network
-
   nginx:
     image: nginx:latest
     container_name: nginx
