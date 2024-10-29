@@ -12,7 +12,7 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=node_app
     volumes:
-      - ./src/mysql_data:/var/lib/mysql
+      - /var/lib/mysql
     ports:
       - "3306:3306"
     networks:
@@ -22,7 +22,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
   node-app:
     build:
       context: .
@@ -33,7 +32,7 @@ services:
       - DB_PASSWORD=root
       - DB_NAME=node_app
     volumes:
-      - ./src:/usr/src/app/src
+      - /usr/src/app
     ports:
       - "3000:3000"
     depends_on:
