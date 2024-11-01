@@ -3,3 +3,7 @@ node_modules
 *.md
 
 .git**
+
+docker-compose.yml
+
+Dockerfile
